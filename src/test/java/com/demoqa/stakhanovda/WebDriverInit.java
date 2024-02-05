@@ -1,6 +1,6 @@
 package com.demoqa.stakhanovda;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,15 +15,15 @@ public class WebDriverInit {
     public static Actions actions;
 
     @BeforeAll
-    static void setUp() {
+    private static void setUp() {
         driver = new ChromeDriver();
         actions = new Actions(driver);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, ofSeconds(10));
     }
 
-    @AfterEach
-    private void close() {
+    @AfterAll
+    private static void quit() {
         driver.quit();
     }
 }
