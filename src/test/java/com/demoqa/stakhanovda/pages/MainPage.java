@@ -56,6 +56,8 @@ public class MainPage {
     private WebElement state;
     @FindBy(id = "city")
     private WebElement city;
+    @FindBy(id = "adplus-anchor")
+    private WebElement adplusBanner;
 
     public MainPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -187,36 +189,41 @@ public class MainPage {
 
     @Step("Выбор штата и города")
     private void chooseStateCity(String stateCity /*format: "State City" (ex: "NCR Delhi")*/) {
-        String[] stArray = new String[2];
-        String myState;
-        String myCity;
+            String[] stArray = new String[2];
+            String myState;
+            String myCity;
 
-        if (stateCity.contains(" ")) {
-            StringBuilder builder = new StringBuilder(stateCity);
-            stArray[0] = builder.substring(0, builder.indexOf(" "));
-            stArray[1] = builder.substring(builder.indexOf(" "), builder.length());
+            if (stateCity.contains(" ")) {
+                StringBuilder builder = new StringBuilder(stateCity);
+                stArray[0] = builder.substring(0, builder.indexOf(" "));
+                stArray[1] = builder.substring(builder.indexOf(" "), builder.length());
 
-            myState = stArray[0];
-            myCity = stArray[1];
-        } else {
-            myState = " ";
-            myCity = " ";
-        }
+                myState = stArray[0];
+                myCity = stArray[1];
+            } else {
+                myState = " ";
+                myCity = " ";
+            }
 
-        actions.moveToElement(state).perform();
+            actions.moveToElement(state).perform();
 
-        actions.click(state).perform();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("react-select-3-input"))).sendKeys(myState);
-        actions.sendKeys(Keys.TAB).perform();
-
-        actions.click(city).sendKeys(city, Keys.TAB).perform();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("react-select-4-input"))).sendKeys(myCity);
-        actions.sendKeys(Keys.TAB).perform();
+            actions.click(state).sendKeys(myState).sendKeys(Keys.TAB).perform();
+            actions.click(city).sendKeys(myCity).sendKeys(Keys.TAB).perform();
     }
 
     @Step("Подтверждение всей формы")
     private void formSubmit() {
         userForm.submit();
+    }
+
+    @Step("Скрытие рекламного баннера")
+    private void hideBanner() {
+        if (adplusBanner.isDisplayed()) {
+            jse.executeScript("document.getElementById('adplus-anchor').style.display = 'none';");
+        } else {
+            wait.until(ExpectedConditions.visibilityOf(adplusBanner));
+            jse.executeScript("document.getElementById('adplus-anchor').style.display = 'none';");
+        }
     }
 
     public void doRegistration(
@@ -232,6 +239,9 @@ public class MainPage {
             String myAddress,
             String stateCity
     ) {
+        /*этот баннер заслоняет некоторые формы*/
+        hideBanner();
+
         fillUpNameSurname(firstName, lastName);
         fillUpEmail(email);
         chooseGender(gender);
