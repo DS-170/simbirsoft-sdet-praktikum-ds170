@@ -1,10 +1,12 @@
 package com.demoqa.stakhanovda.pages;
 
-import com.demoqa.stakhanovda.WebDriverInit;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-public class SubmittingFormSummary extends WebDriverInit {
+public class SubmittingFormSummary {
+    public WebDriver driver;
     @FindBy(id = "example-modal-sizes-title-lg")
     private WebElement formHeader;
     @FindBy(xpath = "/html/body/div[4]/div/div/div[2]/div/table/tbody/tr[1]/td[2]")
@@ -27,6 +29,11 @@ public class SubmittingFormSummary extends WebDriverInit {
     private WebElement addressRow;
     @FindBy(xpath = "/html/body/div[4]/div/div/div[2]/div/table/tbody/tr[10]/td[2]")
     private WebElement stateCityRow;
+
+    public SubmittingFormSummary(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+        this.driver = driver;
+    }
 
     public String getHeader() {
         return formHeader.getText();
