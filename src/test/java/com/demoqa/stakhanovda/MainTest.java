@@ -30,7 +30,7 @@ class MainTest {
     @BeforeEach
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
+        options.addArguments("--headless", "--disable-gpu", "--blink-settings=imagesEnabled=false");
         driver = new ChromeDriver(options);
         driver.manage().window().setSize(new Dimension(1440, 900));
         mainPage = new MainPage(driver);
@@ -93,6 +93,7 @@ class MainTest {
     }
 
     private void doPropertiesAsserts(String assertion) {
+
         Assertions.assertEquals("Thanks for submitting the form", submittingFormSummary.getHeader());
 
         if ("EQUALS".equalsIgnoreCase(assertion)) {
