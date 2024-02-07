@@ -14,7 +14,7 @@ import java.time.Duration;
 
 public class MainPage {
     private final String pageAddress = ConfPropertiesReader.getProperty("mainpage");
-    public WebDriver driver;
+    private WebDriver driver;
     private JavascriptExecutor jse;
     private WebDriverWait wait;
     private Actions actions;
@@ -64,7 +64,6 @@ public class MainPage {
     private WebElement city;
     @FindBy(className = "react-datepicker__month-select")
     private WebElement monthSelect;
-
     @FindBy(className = "react-datepicker__year-select")
     private WebElement yearSelect;
 
@@ -81,7 +80,7 @@ public class MainPage {
     }
 
     @Step("Открытие страницы")
-    public void open() {
+    private void open() {
         driver.get(pageAddress);
         wait.until(ExpectedConditions.visibilityOf(mainLogoXpath));
     }
@@ -122,7 +121,7 @@ public class MainPage {
         dateArray[2] = builder.substring(builder.length() - 4, builder.length());
 
         actions.moveToElement(dateOfBirthInput).perform();
-        dateOfBirthInput.click();
+        wait.until(ExpectedConditions.visibilityOf(dateOfBirthInput)).click();
 
         wait.until(ExpectedConditions.visibilityOf(monthSelect));
 
