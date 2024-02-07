@@ -5,6 +5,7 @@ import com.demoqa.stakhanovda.pages.SubmittingFormSummary;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -30,9 +31,8 @@ class MainTest {
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
-        options.addArguments("start-maximized");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        driver = new ChromeDriver(options);
+        driver.manage().window().setSize(new Dimension(1440, 900));
         mainPage = new MainPage(driver);
         submittingFormSummary = new SubmittingFormSummary(driver);
     }
