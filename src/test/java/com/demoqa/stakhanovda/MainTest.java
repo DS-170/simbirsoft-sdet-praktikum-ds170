@@ -5,8 +5,10 @@ import com.demoqa.stakhanovda.pages.SubmittingFormSummary;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 @Feature("Тестовый сценарий для проверки знаний")
 class MainTest {
@@ -27,8 +29,10 @@ class MainTest {
 
     @BeforeEach
     public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
+        driver.manage().window().setSize(new Dimension(1440, 900));
         mainPage = new MainPage(driver);
         submittingFormSummary = new SubmittingFormSummary(driver);
     }
