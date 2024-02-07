@@ -7,6 +7,7 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 @Feature("Тестовый сценарий для проверки знаний")
 class MainTest {
@@ -27,6 +28,9 @@ class MainTest {
 
     @BeforeEach
     public void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("start-maximized");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         mainPage = new MainPage(driver);
