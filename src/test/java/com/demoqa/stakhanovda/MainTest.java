@@ -42,6 +42,20 @@ class MainTest {
         driver.quit();
     }
 
+//    @Test
+//    public void fiveTimes() {
+//        mainPage.open();
+//        mainPage.doRegistration(firstName, lastName, email, gender, mobile, dateOfBirth, subjects, hobbies, avatar, currentAddress, stateAndCity);
+//        mainPage.open();
+//        mainPage.doRegistration(firstName, lastName, email, gender, mobile, dateOfBirth, subjects, hobbies, avatar, currentAddress, stateAndCity);
+//        mainPage.open();
+//        mainPage.doRegistration(firstName, lastName, email, gender, mobile, dateOfBirth, subjects, hobbies, avatar, currentAddress, stateAndCity);
+//        mainPage.open();
+//        mainPage.doRegistration(firstName, lastName, email, gender, mobile, dateOfBirth, subjects, hobbies, avatar, currentAddress, stateAndCity);
+//        mainPage.open();
+//        mainPage.doRegistration(firstName, lastName, email, gender, mobile, dateOfBirth, subjects, hobbies, avatar, currentAddress, stateAndCity);
+//    }
+
     @Test
     @DisplayName("То что заполнено совпадает с тем что сохранилось в базу")
     @Story("Проверка соответствия введенных данных и того что сохранилось по итогу заполнения формы")

@@ -106,6 +106,8 @@ public class MainPage {
 
     @Step("Выбор даты рождения в календаре")
     private void chooseDateOfBirth(String dateOfBirth /*dd Mmmm,YYYY (example: 01 January,1900)*/) {
+//        long startTime = System.nanoTime();
+
         String dayPartPath = "react-datepicker__day--0";
         StringBuilder builder = new StringBuilder(dateOfBirth);
 
@@ -114,8 +116,9 @@ public class MainPage {
         dateArray[1] = builder.substring(3, builder.indexOf(","));
         dateArray[2] = builder.substring(builder.length() - 4, builder.length());
 
-        actions.moveToElement(dateOfBirthInput).perform();
-        wait.until(ExpectedConditions.elementToBeClickable(dateOfBirthInput)).click();
+//        actions.moveToElement(dateOfBirthInput).perform();
+//        wait.until(ExpectedConditions.elementToBeClickable(dateOfBirthInput)).click();
+        dateOfBirthInput.click();
 
         wait.until(ExpectedConditions.visibilityOf(monthSelect));
 
@@ -126,7 +129,12 @@ public class MainPage {
         sYear.selectByValue(dateArray[2]);
 
         WebElement daySelect = driver.findElement(By.className(dayPartPath + dateArray[0]));
-        wait.until(ExpectedConditions.visibilityOf(daySelect)).click();
+//        wait.until(ExpectedConditions.visibilityOf(daySelect)).click();
+        daySelect.click();
+
+//        long endTime = System.nanoTime();
+//        long duration = (endTime - startTime) / 1000000;
+//        System.out.println("Duration: " + duration + " ms");
     }
 
     @Step("Выбор занятий/уроков")
@@ -248,7 +256,7 @@ public class MainPage {
             String stateCity
     ) {
         /*Этот баннер заслоняет нужные формы*/
-        hideBanner();
+//        hideBanner();
 
         fillUpNameSurname(firstName, lastName);
         fillUpEmail(email);
