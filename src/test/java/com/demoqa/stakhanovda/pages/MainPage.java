@@ -80,7 +80,7 @@ public class MainPage {
     }
 
     @Step("Открытие страницы")
-    private void open() {
+    public void open() {
         driver.get(pageAddress);
         wait.until(ExpectedConditions.visibilityOf(mainLogoXpath));
     }
