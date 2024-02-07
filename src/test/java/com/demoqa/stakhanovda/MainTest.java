@@ -30,7 +30,7 @@ class MainTest {
     @BeforeEach
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
+        options.addArguments("--headless", "--disable-gpu", "--blink-settings=imagesEnabled=false");
         driver = new ChromeDriver(options);
         driver.manage().window().setSize(new Dimension(1440, 900));
         mainPage = new MainPage(driver);
@@ -41,20 +41,6 @@ class MainTest {
     public void tearDown() {
         driver.quit();
     }
-
-//    @Test
-//    public void fiveTimes() {
-//        mainPage.open();
-//        mainPage.doRegistration(firstName, lastName, email, gender, mobile, dateOfBirth, subjects, hobbies, avatar, currentAddress, stateAndCity);
-//        mainPage.open();
-//        mainPage.doRegistration(firstName, lastName, email, gender, mobile, dateOfBirth, subjects, hobbies, avatar, currentAddress, stateAndCity);
-//        mainPage.open();
-//        mainPage.doRegistration(firstName, lastName, email, gender, mobile, dateOfBirth, subjects, hobbies, avatar, currentAddress, stateAndCity);
-//        mainPage.open();
-//        mainPage.doRegistration(firstName, lastName, email, gender, mobile, dateOfBirth, subjects, hobbies, avatar, currentAddress, stateAndCity);
-//        mainPage.open();
-//        mainPage.doRegistration(firstName, lastName, email, gender, mobile, dateOfBirth, subjects, hobbies, avatar, currentAddress, stateAndCity);
-//    }
 
     @Test
     @DisplayName("То что заполнено совпадает с тем что сохранилось в базу")

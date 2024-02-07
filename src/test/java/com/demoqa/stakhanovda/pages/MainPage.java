@@ -18,17 +18,15 @@ public class MainPage {
     private JavascriptExecutor jse;
     private WebDriverWait wait;
     private Actions actions;
-    @FindBy(xpath = "//*[@id=\"app\"]/header/a")
-    private WebElement mainLogoXpath;
     @FindBy(id = "firstName")
     private WebElement firstNamePath;
     @FindBy(id = "lastName")
     private WebElement lastNamePath;
     @FindBy(id = "userEmail")
     private WebElement userEmail;
-    @FindBy(xpath = "//*[@id=\"userNumber\"]")
+    @FindBy(id = "userNumber")
     private WebElement mobileNumberFormXpath;
-    @FindBy(xpath = "//*[@id=\"dateOfBirthInput\"]")
+    @FindBy(id = "dateOfBirthInput")
     private WebElement dateOfBirthInput;
     @FindBy(className = "react-datepicker__month-select")
     private WebElement monthSelect;
@@ -44,21 +42,19 @@ public class MainPage {
     private WebElement otherChoose;
     @FindBy(id = "userForm")
     private WebElement userForm;
-    @FindBy(id = "adplus-anchor")
-    private WebElement adplusBanner;
-    @FindBy(xpath = "//*[@id=\"hobbiesWrapper\"]/div[2]/div[1]/label")
+    @FindBy(id = "hobbies-checkbox-1")
     private WebElement hobbySports;
-    @FindBy(xpath = "//*[@id=\"hobbiesWrapper\"]/div[2]/div[2]/label")
+    @FindBy(id = "hobbies-checkbox-2")
     private WebElement hobbyReading;
-    @FindBy(xpath = "//*[@id=\"hobbiesWrapper\"]/div[2]/div[3]/label")
+    @FindBy(id = "hobbies-checkbox-3")
     private WebElement hobbyMusic;
-    @FindBy(xpath = "//*[@id=\"subjectsContainer\"]/div")
+    @FindBy(id = "subjectsContainer")
     private WebElement subjectContainer;
     @FindBy(id = "currentAddress")
     private WebElement currentAddress;
-    @FindBy(xpath = "//*[@id=\"state\"]/div/div[1]")
+    @FindBy(id = "state")
     private WebElement state;
-    @FindBy(xpath = "//*[@id=\"city\"]/div/div[1]")
+    @FindBy(id = "city")
     private WebElement city;
 
     public MainPage(WebDriver driver) {
@@ -76,7 +72,6 @@ public class MainPage {
     @Step("Открытие страницы")
     public void open() {
         driver.get(pageAddress);
-        wait.until(ExpectedConditions.visibilityOf(mainLogoXpath));
     }
 
     @Step("Заполнение имени и фамилии")
@@ -106,7 +101,6 @@ public class MainPage {
 
     @Step("Выбор даты рождения в календаре")
     private void chooseDateOfBirth(String dateOfBirth /*dd Mmmm,YYYY (example: 01 January,1900)*/) {
-//        long startTime = System.nanoTime();
 
         String dayPartPath = "react-datepicker__day--0";
         StringBuilder builder = new StringBuilder(dateOfBirth);
@@ -116,8 +110,6 @@ public class MainPage {
         dateArray[1] = builder.substring(3, builder.indexOf(","));
         dateArray[2] = builder.substring(builder.length() - 4, builder.length());
 
-//        actions.moveToElement(dateOfBirthInput).perform();
-//        wait.until(ExpectedConditions.elementToBeClickable(dateOfBirthInput)).click();
         dateOfBirthInput.click();
 
         wait.until(ExpectedConditions.visibilityOf(monthSelect));
@@ -129,12 +121,7 @@ public class MainPage {
         sYear.selectByValue(dateArray[2]);
 
         WebElement daySelect = driver.findElement(By.className(dayPartPath + dateArray[0]));
-//        wait.until(ExpectedConditions.visibilityOf(daySelect)).click();
         daySelect.click();
-
-//        long endTime = System.nanoTime();
-//        long duration = (endTime - startTime) / 1000000;
-//        System.out.println("Duration: " + duration + " ms");
     }
 
     @Step("Выбор занятий/уроков")
@@ -163,9 +150,9 @@ public class MainPage {
         boolean isMyHobbies = myHobbies.equalsIgnoreCase(ConfPropertiesReader.getProperty("hobbies"));
 
         if (isMyHobbies) {
-            wait.until(ExpectedConditions.visibilityOf(hobbySports)).click();
-            wait.until(ExpectedConditions.visibilityOf(hobbyReading)).click();
-            wait.until(ExpectedConditions.visibilityOf(hobbyMusic)).click();
+            actions.click(hobbySports);
+            actions.click(hobbyReading);
+            actions.click(hobbyMusic);
         }
     }
 
@@ -232,16 +219,6 @@ public class MainPage {
         userForm.submit();
     }
 
-    @Step("Скрытие рекламного баннера")
-    private void hideBanner() {
-        if (adplusBanner.isDisplayed()) {
-            jse.executeScript("document.getElementById('adplus-anchor').style.display = 'none';");
-        } else {
-            wait.until(ExpectedConditions.visibilityOf(adplusBanner));
-            jse.executeScript("document.getElementById('adplus-anchor').style.display = 'none';");
-        }
-    }
-
     public void doRegistration(
             String firstName,
             String lastName,
@@ -255,9 +232,6 @@ public class MainPage {
             String myAddress,
             String stateCity
     ) {
-        /*Этот баннер заслоняет нужные формы*/
-//        hideBanner();
-
         fillUpNameSurname(firstName, lastName);
         fillUpEmail(email);
         chooseGender(gender);
