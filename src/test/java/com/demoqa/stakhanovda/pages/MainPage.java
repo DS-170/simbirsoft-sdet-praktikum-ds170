@@ -30,12 +30,10 @@ public class MainPage {
     private WebElement mobileNumberFormXpath;
     @FindBy(xpath = "//*[@id=\"dateOfBirthInput\"]")
     private WebElement dateOfBirthInput;
-    @FindBy(xpath = "//*[@id=\"dateOfBirth\"]/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/div[1]/select/option[1]")
-    private WebElement DOBJanuary;
-    @FindBy(xpath = "//*[@id=\"dateOfBirth\"]/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/div[2]/select/option[1]")
-    private WebElement DOBYear;
-    @FindBy(xpath = "//*[@id=\"dateOfBirth\"]/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div[2]")
-    private WebElement DOBDay;
+    @FindBy(className = "react-datepicker__month-select")
+    private WebElement monthSelect;
+    @FindBy(className = "react-datepicker__year-select")
+    private WebElement yearSelect;
     @FindBy(xpath = "//*[@id=\"subjectsWrapper\"]/div[2]")
     private WebElement subjectsForm;
     @FindBy(css = "#genterWrapper > div.col-md-9.col-sm-12 > div:nth-child(1) > label")
@@ -62,10 +60,6 @@ public class MainPage {
     private WebElement state;
     @FindBy(xpath = "//*[@id=\"city\"]/div/div[1]")
     private WebElement city;
-    @FindBy(className = "react-datepicker__month-select")
-    private WebElement monthSelect;
-    @FindBy(className = "react-datepicker__year-select")
-    private WebElement yearSelect;
 
     public MainPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -121,7 +115,7 @@ public class MainPage {
         dateArray[2] = builder.substring(builder.length() - 4, builder.length());
 
         actions.moveToElement(dateOfBirthInput).perform();
-        dateOfBirthInput.click();
+        wait.until(ExpectedConditions.elementToBeClickable(dateOfBirthInput)).click();
 
         wait.until(ExpectedConditions.visibilityOf(monthSelect));
 
