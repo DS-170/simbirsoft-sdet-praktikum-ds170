@@ -121,7 +121,7 @@ public class MainPage {
         dateArray[2] = builder.substring(builder.length() - 4, builder.length());
 
         actions.moveToElement(dateOfBirthInput).perform();
-        wait.until(ExpectedConditions.visibilityOf(dateOfBirthInput)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(dateOfBirthInput)).click();
 
         wait.until(ExpectedConditions.visibilityOf(monthSelect));
 
