@@ -4,9 +4,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class SubmittingFormSummary {
     public WebDriver driver;
+    private WebDriverWait wait;
     @FindBy(id = "example-modal-sizes-title-lg")
     private WebElement formHeader;
     @FindBy(xpath = "/html/body/div[4]/div/div/div[2]/div/table/tbody/tr[1]/td[2]")
@@ -33,9 +38,11 @@ public class SubmittingFormSummary {
     public SubmittingFormSummary(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public String getHeader() {
+        wait.until(ExpectedConditions.visibilityOf(formHeader));
         return formHeader.getText();
     }
 

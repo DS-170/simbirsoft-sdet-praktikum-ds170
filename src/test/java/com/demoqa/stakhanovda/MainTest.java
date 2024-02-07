@@ -93,6 +93,7 @@ class MainTest {
     }
 
     private void doPropertiesAsserts(String assertion) {
+
         Assertions.assertEquals("Thanks for submitting the form", submittingFormSummary.getHeader());
 
         if ("EQUALS".equalsIgnoreCase(assertion)) {
