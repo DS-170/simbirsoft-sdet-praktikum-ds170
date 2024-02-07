@@ -120,7 +120,7 @@ public class MainPage {
         dateArray[1] = builder.substring(3, builder.indexOf(","));
         dateArray[2] = builder.substring(builder.length() - 4, builder.length());
 
-        actions.moveToElement(dateOfBirthInput).perform();
+//        actions.moveToElement(dateOfBirthInput).perform();
         wait.until(ExpectedConditions.elementToBeClickable(dateOfBirthInput)).click();
 
         wait.until(ExpectedConditions.visibilityOf(monthSelect));
