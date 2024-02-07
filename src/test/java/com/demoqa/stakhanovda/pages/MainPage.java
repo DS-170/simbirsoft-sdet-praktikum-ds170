@@ -28,7 +28,7 @@ public class MainPage {
     private WebElement userEmail;
     @FindBy(xpath = "//*[@id=\"userNumber\"]")
     private WebElement mobileNumberFormXpath;
-    @FindBy(id = "dateOfBirthInput")
+    @FindBy(xpath = "//*[@id=\"dateOfBirthInput\"]")
     private WebElement dateOfBirthInput;
     @FindBy(xpath = "//*[@id=\"dateOfBirth\"]/div[2]/div[2]/div/div/div[2]/div[1]/div[2]/div[1]/select/option[1]")
     private WebElement DOBJanuary;
@@ -120,8 +120,8 @@ public class MainPage {
         dateArray[1] = builder.substring(3, builder.indexOf(","));
         dateArray[2] = builder.substring(builder.length() - 4, builder.length());
 
-//        actions.moveToElement(dateOfBirthInput).perform();
-        wait.until(ExpectedConditions.elementToBeClickable(dateOfBirthInput)).click();
+        actions.moveToElement(dateOfBirthInput).perform();
+        dateOfBirthInput.click();
 
         wait.until(ExpectedConditions.visibilityOf(monthSelect));
 
